@@ -18,7 +18,7 @@
  When star collides with wall, Star.mid plays
  When GameState changes (TitleState,PlayState,and CreditState), GameChange.mid plays 
  When spaceship x position = 0 or 600, SpaceShip.mid plays
- When SPACEBAR is pressed in PLAYSTATE, Pew.mid plays
+ When SPACEBAR is pressed in PLAYSTATE, Pew.mid plays 
  */
 
 package particle_engine_4.example;
