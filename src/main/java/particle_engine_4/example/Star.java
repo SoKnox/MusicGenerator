@@ -1,11 +1,10 @@
-package particle_engine_4.example;
-
 /*
  * Sophie Knox
- * Particle Engine 3
- * 9/30/24
- * This project creates three sublasses of particles: an alien spaceship, cow, and stars that are confined to bounce around in the screen
- * This class draws star particle, creates bounding box for bullet collisons
+ * Particle Engine 4
+ * 10/11/24
+ * This project creates three sublasses of particles: an alien spaceship, cow, and stars.
+ * Stars and cows bounce off screen. Spaceship is confined to x bounds. Cows collide with eachother
+ * This subclass controls/draws draw and implements Star.mid sound when star collides with wall
  * 
  * I am attempting extra credit
  * Goal of game: Shoot all the stars. Each star shot is a point. If you shoot a cow you automatically loose.
@@ -13,14 +12,19 @@ package particle_engine_4.example;
  * spacebar shoots bullet
  * IF YOU CANT BEAT GAME, CHANGE STAR # TO 1 IN PLAYSTATE
  * 
- * 
- * Cows collide with eachother
+ *Sounds that occure:
+ When cows collide with eachother, CowCollision.mid plays
+ When cows collide with wall, Cow.mid plays
+ When star collides with wall, Star.mid plays
+ When GameState changes (TitleState,PlayState,and CreditState), GameChange.mid plays 
+ When spaceship x position = 0 or 600, SpaceShip.mid plays
+ When SPACEBAR is pressed in PLAYSTATE, Pew.mid plays
  */
 
 
 
- 
 
+package particle_engine_4.example;
  import processing.core.PApplet;
  import processing.core.PConstants;
  import java.util.ArrayList;
@@ -36,9 +40,9 @@ package particle_engine_4.example;
      public Star(float x, float y, PApplet p, MelodyManager melodyManager)
       {
          super(x, y, p);
-         this.radius = 10;  //size
-         this.points = 5;   //# of points
-         this.angleOffset = PConstants.TWO_PI / points;  //angle between two points
+         this.radius = 10;//size
+         this.points = 5;//# of points
+         this.angleOffset = PConstants.TWO_PI / points; //angle between two points
          this.melodyManager = melodyManager; //handles melody manager
      }
  
@@ -60,13 +64,16 @@ package particle_engine_4.example;
          }
      }
  
+     //draw star particle
      @Override
-     public void display() {
+     public void display() 
+     {
          p.fill(255, 255, 51);
          p.pushMatrix();
          p.translate(position.x, position.y); //moves origin
          p.beginShape();
-         for (int i = 0; i < points * 2; i++) {
+         for (int i = 0; i < points * 2; i++)
+          {
              float angle = i * angleOffset / 2;
              float r = (i % 2 == 0) ? radius : radius / 2;//got this from the processing website
              float x = PApplet.cos(angle) * r;
@@ -77,6 +84,7 @@ package particle_engine_4.example;
          p.popMatrix();
      }
  
+     //radius for particle size for bounds
      public float getRadius() 
      {
          return radius;
@@ -109,6 +117,7 @@ package particle_engine_4.example;
          return collided;
      }
  
+     //RUBRIC 3.33% A different sound for particle colliding with wall
      //plays Star.mid print notes to the terminal
      private void playStarMidi() 
      {
@@ -119,14 +128,14 @@ package particle_engine_4.example;
          ArrayList<Integer> starMelody = melodyManager.players.get(starMidiIndex).melody;
          if (starMelody != null && !starMelody.isEmpty())
           {
-             System.out.println("Notes in Star MIDI:");
+             System.out.println("Notes in Star.mid");
              for (int note : starMelody)
               {
                  System.out.println("Note: " + note);
              }
          } else
           {
-             System.out.println("No notes in Star MIDI.");
+             System.out.println("No notes in Star.mid");
          }
      }
  }

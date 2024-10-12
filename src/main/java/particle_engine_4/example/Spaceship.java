@@ -1,9 +1,10 @@
 /*
  * Sophie Knox
- * Particle Engine 3
- * 9/30/24
- * This project creates three sublasses of particles: an alien spaceship, cow, and stars that are confined to bounce around in the screen
- * This subclass controls/draws spaceship and bullets
+ * Particle Engine 4
+ * 10/11/24
+ * This project creates three sublasses of particles: an alien spaceship, cow, and stars.
+ * Stars and cows bounce off screen. Spaceship is confined to x bounds. Cows collide with eachother
+ * This subclass controls/draws spaceship and bullets and implements the sound for them with Pew.mid and SpaceShip.mid
  * 
  * I am attempting extra credit
  * Goal of game: Shoot all the stars. Each star shot is a point. If you shoot a cow you automatically loose.
@@ -18,11 +19,9 @@
  When GameState changes (TitleState,PlayState,and CreditState), GameChange.mid plays 
  When spaceship x position = 0 or 600, SpaceShip.mid plays
  When SPACEBAR is pressed in PLAYSTATE, Pew.mid plays
- 
- * 
- * 
- * Cows collide with eachother
- */package particle_engine_4.example;
+ */
+
+package particle_engine_4.example;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -172,7 +171,7 @@ public class Spaceship extends Particle
         return position;
     }
 
-    //RUBRIC 3.33% Play sound for particle colliding with wall
+    //RUBRIC 3.33% Play sound for particle colliding with wall. When ship x position = 0 || 600, SpaceShip.mid plays and notes are in terminal
     public void playSpaceshipMidi() 
     {
         int spaceshipMidiIndex = 5;  
@@ -180,13 +179,16 @@ public class Spaceship extends Particle
         melodyManager.start(spaceshipMidiIndex);
 
         ArrayList<Integer> spaceshipMelody = melodyManager.players.get(spaceshipMidiIndex).melody;
-        if (spaceshipMelody != null && !spaceshipMelody.isEmpty()) {
-            System.out.println("Notes in Spaceship MIDI:");
-            for (int note : spaceshipMelody) {
+        if (spaceshipMelody != null && !spaceshipMelody.isEmpty()) 
+        {
+            System.out.println("Notes in Spaceship.mid");
+            for (int note : spaceshipMelody) 
+            {
                 System.out.println("Note: " + note);
             }
-        } else {
-            System.out.println("No notes found in Spaceship MIDI.");
+        } else 
+        {
+            System.out.println("No notes in Spaceship.mid");
         }
     }
 }

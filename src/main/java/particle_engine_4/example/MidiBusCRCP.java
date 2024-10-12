@@ -16,6 +16,29 @@
  *  Only checks/uses midi outputs to make things simple -- only using the output for class projects
  * 
  */
+/*
+ * Sophie Knox
+ * Particle Engine 4
+ * 10/11/24
+ * This project creates three sublasses of particles: an alien spaceship, cow, and stars.
+ * Stars and cows bounce off screen. Spaceship is confined to x bounds. Cows collide with eachother
+ *
+ * 
+ * I am attempting extra credit
+ * Goal of game: Shoot all the stars. Each star shot is a point. If you shoot a cow you automatically loose.
+ * Left and right arrows contol spaceship's x position
+ * spacebar shoots bullet
+ * IF YOU CANT BEAT GAME, CHANGE STAR # TO 1 IN PLAYSTATE
+ * 
+ *Sounds that occure:
+ When cows collide with eachother, CowCollision.mid plays
+ When cows collide with wall, Cow.mid plays
+ When star collides with wall, Star.mid plays
+ When GameState changes (TitleState,PlayState,and CreditState), GameChange.mid plays 
+ When spaceship x position = 0 or 600, SpaceShip.mid plays
+ When SPACEBAR is pressed in PLAYSTATE, Pew.mid plays
+ */
+
 
  package particle_engine_4.example;
 
