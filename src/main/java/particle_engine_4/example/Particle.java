@@ -7,7 +7,7 @@
  * Stars and cows bounce off screen. Spaceship is confined to x bounds. Cows collide with eachother
  * This super class controls (like velociry) particle subclasses. 
  * 
- * I am attempting extra credit
+ * I am attempting extra credit!
  * Goal of game: Shoot all the stars. Each star shot is a point. If you shoot a cow you automatically loose.
  * Left and right arrows contol spaceship's x position
  * spacebar shoots bullet
