@@ -49,8 +49,8 @@ public class MelodyManager {
     void addMidiFile(String filePath) {
         int index = players.size();
         //Change the bus to the relevant port -- if you have named it something different OR you are using Windows
-        players.add(new MelodyPlayer(100, "LoopBe Internal MIDI")); //sets up the player with your bus.
-        //player.listDevices(); //prints available midi devices to the console -- find your device
+        players.add(new MelodyPlayer(100,  "LoopBe Internal MIDI")); //sets up the player with your bus.
+        players.get(index).listDevices(); //prints available midi devices to the console -- find your device
 
         midiNotes.add(new MidiFileToNotes(filePath)); // creates a new MidiFileToNotes -- reminder -- ALL objects in Java
         // must
