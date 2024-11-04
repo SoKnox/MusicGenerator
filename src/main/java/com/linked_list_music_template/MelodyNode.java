@@ -8,61 +8,39 @@ Each node stores a reference to a melody (via an index) and can link to the next
 
 */
 
-
 package com.linked_list_music_template;
 
-//Node class 
-public class MelodyNode 
-{
-    private LinkedListMelodyManager melodies; //manager
-    private int whichMelody;//value represent the melodies index
-    private MelodyNode next; //references next node in the list
+public class MelodyNode {
+    private TreeMelodyManager melodies;
+    private int whichMelody;
+    private MelodyNode next;
 
-    //constructor 
-    public MelodyNode(LinkedListMelodyManager melodies, int whichMelody) 
-    {
+    public MelodyNode(TreeMelodyManager melodies, int whichMelody) {
         this.melodies = melodies;
         this.whichMelody = whichMelody;
     }
 
-    
-    public LinkedListMelodyManager getManager() 
-    {
+    public TreeMelodyManager getManager() {
         return melodies;
     }
 
-    //returns index number
-    public int getMelodyValue()
-     {
+    public int getMelodyValue() {
         return whichMelody;
     }
 
-    //next node getter
-    public MelodyNode getNext() 
-    {
+    public MelodyNode getNext() {
         return next;
     }
 
-    //next node setter
-    public void setNext(MelodyNode next)
-    {
+    public void setNext(MelodyNode next) {
         this.next = next;
     }
 
-    //starts the melody
-    public void start() 
-    {
+    public void start() {
         melodies.start(whichMelody);
     }
 
-    //sees if melody is at end
-    public boolean atEnd() 
-    {
+    public boolean atEnd() {
         return melodies.atEnd(whichMelody);
-    }
-
-    public int getMelodyIndex() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMelodyIndex'");
     }
 }

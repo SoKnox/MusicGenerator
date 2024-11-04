@@ -12,6 +12,7 @@ The LinkedListMelodyManager class manages and plays a collection of MIDI files b
 
 */
 
+
 package com.linked_list_music_template;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class LinkedListMelodyManager implements Drawable {
     static String appendType = ".mid" + sys.getSeparator();
 
     // Array of MIDI file names to be loaded
-    String[] files = {"Midi1", "Midi2", "Midi3", "Midi4", "Midi5", "Midi6", "Midi7", "Midi8"};
+    String[] files = {"SoundLong"};
 
     // Constructor initializing the players and midiNotes lists
     public LinkedListMelodyManager() {
@@ -61,7 +62,7 @@ public class LinkedListMelodyManager implements Drawable {
     // Adds a MIDI file to the manager, creating a corresponding MelodyPlayer
     public void addMidiFile(String filePath) {
         int index = players.size(); // Get the current index for the new player
-        players.add(new MelodyPlayer(100, "Microsoft GS Wavetable Synth")); // Create and add a new MelodyPlayer
+        players.add(new MelodyPlayer(120, "Microsoft GS Wavetable Synth")); // Create and add a new MelodyPlayer
         midiNotes.add(new MidiFileToNotes(filePath)); // Create and add a MidiFileToNotes instance
         // Set the melody, rhythm, and start times for the player based on the MIDI file
         players.get(index).setMelody(midiNotes.get(index).getPitchArray());
@@ -71,32 +72,31 @@ public class LinkedListMelodyManager implements Drawable {
 
     //starts at given index
     public void start(int index)
-     {
+    {
         players.get(index).reset(); //resets back to start
     }
 
-   //ends at given index 
-    public boolean atEnd(int index) 
+    //ends at given index
+    public boolean atEnd(int index)
     {
         return players.get(index).atEndOfMelody(); //sees if melody is ended
     }
 
-    
-    public void draw() 
+    public void draw()
     {
         playMelodies();
     }
 
     //prints melody list content
     public void print()
-     {
+    {
         StringBuilder melodyOutput = new StringBuilder("Melody Manager: ");
         for (int i = 0; i < players.size(); i++) {
             melodyOutput.append("Melody ").append(i).append(", ");
         }
-        if (melodyOutput.length() > 0) 
+        if (melodyOutput.length() > 0)
         {
-            melodyOutput.setLength(melodyOutput.length() - 2); 
+            melodyOutput.setLength(melodyOutput.length() - 2);
         }
         System.out.println(melodyOutput.toString());
     }
