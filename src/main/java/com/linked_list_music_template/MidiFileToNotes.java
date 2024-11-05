@@ -1,6 +1,9 @@
 
-/*Sophie Knox CRCP3 10/29/24 
-Music Generator: With 8 midi files, creates generator using linked lists that allows you to weave, loop, clear, reverse, play, and stop the melody
+/* MidiFileToNotes.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
  * c2017 Courtney Brown 
  * 
  * Class: MidiFileToNotes

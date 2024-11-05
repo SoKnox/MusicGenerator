@@ -1,13 +1,15 @@
 
 
-/*Sophie Knox CRCP3 10/29/24 
-Music Generator: With 8 midi files, creates generator using linked lists that allows you to weave, loop, clear, reverse, play, and stop the melody
+/*LinkedListMelodyManager.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ * Description:
 
-The LinkedListMelodyManager class manages and plays a collection of MIDI files by creating MelodyPlayer instances for each file.
- It loads MIDI files, converts them into notes, and lets each melody be played, restarted, or checked if it has finished playing. 
- The class also provides functionality to display the list of melodies and their statuses.
-
-
+this Java class, LinkedListMelodyManager, is designed to manage a collection of melody players and MIDI files. 
+It implements the Drawable interface and uses ArrayList to store instances of MelodyPlayer and MidiFileToNotes
 
 
 */
@@ -91,7 +93,8 @@ public class LinkedListMelodyManager implements Drawable {
     public void print()
     {
         StringBuilder melodyOutput = new StringBuilder("Melody Manager: ");
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size(); i++) 
+        {
             melodyOutput.append("Melody ").append(i).append(", ");
         }
         if (melodyOutput.length() > 0)

@@ -1,7 +1,12 @@
 
-/*Sophie Knox CRCP3 10/29/24 
-Music Generator: With 8 midi files, creates generator using linked lists that allows you to weave, loop, clear, reverse, play, and stop the melody
-
+/*
+ * App.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ * Description:
 This file is the main application of this music generator. It sets up buttons to contol the musical operations in real time
 
 
@@ -25,7 +30,7 @@ public class App extends PApplet {
 
     TreeMelodyManager manager = new TreeMelodyManager();
     LinkedListMelody melody = new LinkedListMelody(manager);
-    TreeMelody treeMelody = new TreeMelody(manager); // Initialize TreeMelody object
+    TreeMelody treeMelody = new TreeMelody(manager);
 
     public static void main(String[] args) 
     {
@@ -48,19 +53,14 @@ public class App extends PApplet {
         draws.add(manager);
     }
 
+    //draws buttons
     public void setupButtons() 
     {
         float centerX = width / 2;
-        float centerY = height / 4; 
+        float centerY = height / 4;
         float spacer = 50;
 
-        PlayButton play = new PlayButton(this, melody, "Play", centerX, centerY) 
-        {
-            public void onPress() 
-            {
-                melody.start();
-            }
-        };
+        PlayButton play = new PlayButton(this, melody, treeMelody, manager, "Play", centerX, centerY);
         draws.add(play);
         presses.add(play);
 
@@ -106,12 +106,19 @@ public class App extends PApplet {
         }
     }
 
+
     public void mousePressed() 
     {
+        //giveslocation for where mouse is pressed and if it presses abutton
+        System.out.println("Mouse pressed at: (" + mouseX + ", " + mouseY + ")");
         for (OnMousePress press : presses) 
         {
             press.mousePressed(mouseX, mouseY);
         }
     }
 }
+
+
+
+
 

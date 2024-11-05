@@ -1,4 +1,9 @@
 /*
+ MidiBusCRCP.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
  * Courtney Brown (2023) slightly modified the code from the MidiBus class, from https://github.com/sparks/themidibus/ 
  * by Severin Smith c2009, LGPL 
  * 

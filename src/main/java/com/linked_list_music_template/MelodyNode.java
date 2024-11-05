@@ -1,46 +1,65 @@
-/*Sophie Knox CRCP3 10/29/24 
-Music Generator: With 8 midi files, creates generator using linked lists that allows you to weave, loop, clear, reverse, play, and stop the melody
-
-The MelodyNode class represents a node in a linked list structure for managing melodies. 
-Each node stores a reference to a melody (via an index) and can link to the next node in the list, enabling ordered playback and navigation.
-
-
+/* MelodyNode.java
+ * Author: Sophie Knox
+ * Date: 11/4/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ * Description:
+ * This class represents a node in a linked list of melodies, each node corresponding 
+ * to a specific melody managed by the TreeMelodyManager. MelodyNodes are linked to 
+ * form a sequence, allowing melodies to be played in a structured order.
+ * 
 
 */
 
 package com.linked_list_music_template;
 
-public class MelodyNode {
-    private TreeMelodyManager melodies;
-    private int whichMelody;
-    private MelodyNode next;
+public class MelodyNode 
+{
+    private TreeMelodyManager melodies;//manages melody collection
+    private int whichMelody;//specific melody index in manager
+    private MelodyNode next;//next node linked list
 
-    public MelodyNode(TreeMelodyManager melodies, int whichMelody) {
+    //creates melody node from specific melody manager and index
+    public MelodyNode(TreeMelodyManager melodies, int whichMelody) 
+    {
         this.melodies = melodies;
         this.whichMelody = whichMelody;
     }
 
-    public TreeMelodyManager getManager() {
+    //returns melody manager
+    public TreeMelodyManager getManager() 
+    {
         return melodies;
     }
 
-    public int getMelodyValue() {
+    //gets index of melody
+    public int getMelodyValue() 
+    {
         return whichMelody;
     }
 
-    public MelodyNode getNext() {
+    //gets next node in sequence
+    public MelodyNode getNext() 
+    {
         return next;
     }
 
-    public void setNext(MelodyNode next) {
+    //places/sets the next node into sequence
+    public void setNext(MelodyNode next) 
+    {
         this.next = next;
     }
 
-    public void start() {
+    //plays melody from this node
+    public void start() 
+    {
         melodies.start(whichMelody);
     }
 
-    public boolean atEnd() {
+    //sees if melody with this node has reached the end
+    public boolean atEnd() 
+    {
         return melodies.atEnd(whichMelody);
     }
 }

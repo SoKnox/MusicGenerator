@@ -1,160 +1,174 @@
 /*
  * c2024  [Sophie Knox] using a template by Dr. Courtney Brown
  * Class: LinkedListMelody
+ * LinkedListMelody.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ * Description:
  * Description: The LinkedListMelody class manages a sequence of musical nodes
- *  (like notes) in a linked list, letting you add, remove, play, and modify parts of a melody.
- *  It supports features like looping the melody, reversing the order of notes, and weaving new notes into the sequence. 
- * This class connects with LinkedListMelodyManager to handle these actions and control the melody’s playback.
+ *  (like notes) in a linked list, letting you start,stop,loop,clear,andprint.
+ *
  * 
  */
 package com.linked_list_music_template;
 
 import java.util.ArrayList;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 
-public class LinkedListMelody implements Drawable 
-
-{
-    private MelodyNode head;
-    private MelodyNode curPlayNode = null;
-    private boolean loopEnabled = false;
-    private TreeMelodyManager manager;
-
-    public LinkedListMelody(TreeMelodyManager manager)
-     {
-        this.manager = manager;
-    }
-
-    public TreeMelodyManager getManager() 
-    {
-        return manager;
-    }
-
-    public boolean isEmpty() 
-    {
-        return head == null;
-    }
-
-    public void insert(int index, MelodyNode node) 
-    {
-        if (index == 0) 
-        {
-            insertAtStart(node);
-        } else 
-        {
-            MelodyNode current = head;
-            for (int i = 0; i < index - 1 && current != null; i++) 
-            {
-                current = current.getNext();
-            }
-            if (current != null) 
-            {
-                node.setNext(current.getNext());
-                current.setNext(node);
-            }
-        }
-    }
-
-    public void insertAtStart(MelodyNode node) 
-    {
-        if (isEmpty()) 
-        {
-            head = node;
-        } else 
-        {
-            node.setNext(head);
-            head = node;
-        }
-    }
-
-    public void insertAtEnd(MelodyNode node) 
-    {
-        if (isEmpty()) 
-        {
-            head = node;
-        } else 
-        {
-            MelodyNode current = head;
-            while (current.getNext() != null) 
-            {
-                current = current.getNext();
-            }
-            current.setNext(node);
-        }
-    }
-
-    public void loop(boolean enable) 
-    {
-        loopEnabled = enable;
-    }
-
-    public void draw() 
-    {
-        play();
-    }
-
-    public void start()
-     {
-        if (head != null) 
-        {
-            curPlayNode = head;
-            curPlayNode.start();
-            System.out.println("Playback started.");
-        }
-    }
-
-    public void play() 
-    {
-        if (curPlayNode != null && curPlayNode.atEnd()) 
-        {
-
-            MelodyNode next = curPlayNode.getNext();
-            if (next != null) 
-            {
-                curPlayNode = next;
-                curPlayNode.start();
-            } else if (loopEnabled) 
-            {
-                curPlayNode = head;
-                curPlayNode.start();
-            }
-        }
-    }
-
-    public void stop()
-     {
-        curPlayNode = null;
-        System.out.println("Playback stopped.");
-    }
+public class LinkedListMelody implements Drawable {
+    
+    ArrayList<MelodyPlayer> players;
+    
+    ArrayList<MidiFileToNotes> midiNotes;
 
     
+    static FileSystem sys = FileSystems.getDefault();
+    static String prependPath = "mid" + sys.getSeparator();
+    static String appendType = ".mid" + sys.getSeparator();
+
+    //array of MIDI file names to be loaded
+    String[] files = {"SoundLong"};
+    
+    boolean isPlaying = false;
+    boolean isLooping = false;
+
+    //constructor 
+    public LinkedListMelody(TreeMelodyManager manager) 
+    {
+        players = new ArrayList<>();
+        midiNotes = new ArrayList<>();
+        setup();
+    }
+
+
+    public void setup() 
+    {
+        for (int i = 0; i < files.length; i++) 
+        {
+            addMidiFile(prependPath + files[i] + appendType); // Load each MIDI file
+        }
+    }
+
+    // Returns the number of melody players
+    public int size() 
+    {
+        return players.size();
+    }
+
+    // Plays all melodies using their respective players
+    public void playMelodies() 
+    {
+        if (isPlaying) {
+            for (MelodyPlayer player : players) 
+            {
+                player.play();
+                if (player.atEndOfMelody()) 
+                {
+                    if (isLooping) 
+                    {
+                        player.reset(); //if enabled rests looping
+                    } else 
+                    {
+                        player.stop(); //if disabled, stops player from looping
+                    }
+                }
+            }
+        }
+    }
+
+    //adds a MIDI file to the manager, creating a corresponding MelodyPlayer
+    public void addMidiFile(String filePath) 
+    {
+        int index = players.size(); //get the current index for the new player
+        players.add(new MelodyPlayer(120, "Microsoft GS Wavetable Synth")); // Create and add a new MelodyPlayer
+        midiNotes.add(new MidiFileToNotes(filePath)); // Create and add a MidiFileToNotes instance
+        //set the melody, rhythm, and start times for the player based on the MIDI file
+        players.get(index).setMelody(midiNotes.get(index).getPitchArray());
+        players.get(index).setRhythm(midiNotes.get(index).getRhythmArray());
+        players.get(index).setStartTimes(midiNotes.get(index).getStartTimeArray());
+    }
+
+    // plays all melodies
+    public void start() 
+    {
+        isPlaying = true;
+        for (MelodyPlayer player : players) 
+        {
+            player.reset(); //rests player to start
+        }
+    }
+
+    //stops playing melodys
+    public void stop() 
+    {
+        isPlaying = false;
+        for (MelodyPlayer player : players) 
+        {
+            player.stop(); //stop all players
+        }
+    }
+
+    //sets looping state
+    public void loop(boolean changeLoop) 
+    {
+        isLooping = changeLoop;
+    }
+
+    //sees if melody is playing
+    public boolean isPlaying() 
+    {
+        return isPlaying;
+    }
+
+    //clears midi notes and players
+    public void clear() 
+    {
+        players.clear();
+        midiNotes.clear();
+    }
+
+    //checks if the melody has reached the end by looking at index
+    public boolean atEnd(int index) 
+    {
+        return players.get(index).atEndOfMelody();
+    }
+
+  
+    public void draw() {
+        playMelodies();
+    }
+
+    //prints the content of melody list
     public void print() 
     {
-        MelodyNode temp = head;
-        StringBuilder melodyOutput = new StringBuilder("Melody: ");
-        while (temp != null) 
+        StringBuilder melodyOutput = new StringBuilder("Melody Manager: ");
+        for (int i = 0; i < players.size(); i++) 
         {
-            melodyOutput.append(temp.getMelodyValue()).append(", ");
-            temp = temp.getNext();
+            melodyOutput.append("Melody ").append(i).append(", ");
         }
-        if (melodyOutput.length() > 0)
-         {
+        if (melodyOutput.length() > 0) 
+        {
             melodyOutput.setLength(melodyOutput.length() - 2);
         }
         System.out.println(melodyOutput.toString());
     }
 
-    public void clear() 
+    //plays melodies
+    public void play() 
     {
-        head = null;
-        System.out.println("The Melody List Is Cleared");
+        playMelodies();
     }
 
-
-    public void addNodes() 
+    //toggle printing of notes 
+    public void togglePrintNotes() 
     {
-        for (int i = 0; i < manager.size(); i++)
-         {
-            insertAtEnd(new MelodyNode(manager, i));
+        for (MelodyPlayer player : players) 
+        {
+            player.togglePrintNotes();
         }
     }
 }

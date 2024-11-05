@@ -10,6 +10,13 @@ Music Generator: With 8 midi files, creates generator using linked lists that al
  * Description: Anything that should be called in the Processing draw() function
  * Which is actually an update method not just a 'draw' method so more specifically named than is appropriate but I did not write Processing :)
  * 
+ * Drawable.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ *
  */
 
 

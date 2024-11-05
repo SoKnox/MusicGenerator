@@ -1,10 +1,15 @@
-/*Sophie Knox CRCP3 10/29/24 
-Music Generator: With 8 midi files, creates generator using linked lists that allows you to weave, loop, clear, reverse, play, and stop the melody
-
-he MelodyManager class is responsible for handling a collection of MelodyPlayer instances and the corresponding MIDI note data. 
-It allows for the addition of new melodies from MIDI files and controls playback of all melodies. The manager can also reset a specific melody or check if it has reached its end.
-
-
+/*MelodyManager.java
+ * Author: Sophie Knox
+ * Date: 11/04/24
+ * Course: CRCP3
+ * Project: Music Generator with Trees
+ *
+ * Description:
+ * This class is responsible for managing a collection of MelodyPlayer instances and 
+ * the corresponding MIDI note data. It provides functionality for adding new melodies 
+ * from MIDI files, playing all melodies in sequence, and controlling playback of 
+ * individual melodies. Additionally, it can reset a melody to the start or check if it 
+ * has reached its end.
 
 */
 
@@ -14,22 +19,26 @@ package com.linked_list_music_template;
 import java.util.ArrayList;
 
 // Manages a collection of melody players and MIDI note data
-public class MelodyManager {
+public class MelodyManager 
+{
     ArrayList<MelodyPlayer> players; // List of melody players
     ArrayList<MidiFileToNotes> midiNotes; // List of MIDI note sequences
 
     // Constructor to initialize the lists
-    MelodyManager() {
+    MelodyManager() 
+    {
         players = new ArrayList<>();
         midiNotes = new ArrayList<>();
     }
 
-    // Plays all melodies by iterating over each player
-    public void playMelodies() {
-        assert(players != null); // Ensure players list is not null
+    //plays all melodies by iterating over each player
+    public void playMelodies() 
+    {
+        assert(players != null); //ensure players list is not null
 
-        // Loop through each player and call play on it
-        for(int i = 0; i < players.size(); i++) {
+        //loop through each player and call play on it
+        for(int i = 0; i < players.size(); i++) 
+        {
             players.get(i).play();
         }
     }
@@ -53,12 +62,14 @@ public class MelodyManager {
     }
 
     //resets postion to start of melody
-    void start(int index) {
+    void start(int index) 
+    {
         players.get(index).reset();
     }
 
     //sees if melody is finished
-    boolean atEnd(int index) {
+    boolean atEnd(int index) 
+    {
         return players.get(index).atEndOfMelody();
     }
 }
